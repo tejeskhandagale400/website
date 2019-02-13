@@ -1,38 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
- 
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Demo</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
 </head>
 <body>
+	<div class="container"></div>
 
+	<div class="container unauthenticated">
 
+		With github: <a href="/login">click here</a>
 
-<!-- <h1 align="center">TripEasy</h1>
-<ul>
-<li><a href="flights">Book Flight Here</a></li>
-<li><a href="getAllhotels">Book Hotels Here</a></li>
- -->
-</ul>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<title>Trip Easy</title>
-</head>
-<body>
-	<div class="row">
-
-		<div class="col-lg-12">
-			<jsp:include page="HeaderFooter.jsp" flush="true"></jsp:include>
-		</div>
 	</div>
+
+	<div class="container authenticated" style="display: none">
+
+		Logged in as: <span id="user"></span>
+
+	</div>
+
+	<div class="container authenticated">
+		Logged in as: <span id="user"></span>
+		<div>
+			<button onClick="logout()" class="btn btn-primary">Logout</button>
+
+		</div>
+
+	</div>
+
+
+
+	<script type="text/javascript">
+		$.get("/user", function(data) {
+			$("#user").html(data.userAuthentication.details.name);
+			$(".unauthenticated").hide()
+			$(".authenticated").show()
+
+		});
+		var logout = function() {
+			$.post("/logout", function() {
+				$("#user").html('');
+				$(".unauthenticated").show();
+				$(".authenticated").hide();
+			})
+			return true;
+
+		}
+	</script>
 
 </body>
 </html>

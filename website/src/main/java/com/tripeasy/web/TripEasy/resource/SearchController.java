@@ -26,18 +26,12 @@ public class SearchController {
 
 	@RequestMapping("/searchHotels")
 	public ModelAndView getAllCityForHotel() {
-		List<Hotel> hotelCityList = restTemplate.getForObject("http://localhost:8989/cities/Hotel", List.class);
-		return new ModelAndView("HotelSearch", "hotelCityList", hotelCityList);
+		List<Hotel> flightList = restTemplate.getForObject("http://localhost:8989/cities/Hotel", List.class);
+		return new ModelAndView("FlightSearch", "flightList", flightList);
 	}
 
 	@RequestMapping(value= "/searchFlight", method=RequestMethod.POST)
 	public String searchFlight(@RequestParam String source,@RequestParam String destination) {
 		return "redirect:http://localhost:8764/flight/flights?source="+source+"&destination="+destination;
-	}
-	
-	@RequestMapping(value= "/searchHotel", method=RequestMethod.POST)
-	public String searchHotel(@RequestParam String city){
-		System.out.println("in search " +city);
-		return "redirect:http://localhost:8764/hotel/hotels?city="+city;
 	}
 }

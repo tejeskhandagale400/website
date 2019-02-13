@@ -25,7 +25,6 @@ public class Hotel {
 	private String longitude;
 
 	public Hotel() {
-	 
 		super();
 
 	}
